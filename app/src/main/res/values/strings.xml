@@ -25,4 +25,10 @@
     <string name="deletar">Deletar</string>
     <string name="editar">Editar</string>
     <string name="nenhum_item_cadastrado">Nenhum item cadastrado</string>
+    <string name="cancelado">Cancelado</string>
+    <string name="produto_salvo_sucesso">Produto salvo com sucesso</string>
+    <string name="app_version">Version 1.0</string>
+    <string name="author"><![CDATA[Desenvolvido por Diego Saouda <diegosaouda@gmail.com>]]></string>
+    <string name="title_activity_sobre">Sobre</string>
+    <string name="source">Fonte localizado no github dsaouda/fiap-android-wishlist</string>
 </resources>

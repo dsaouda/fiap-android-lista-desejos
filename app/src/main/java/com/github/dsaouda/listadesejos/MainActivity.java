@@ -3,8 +3,10 @@ package com.github.dsaouda.listadesejos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +26,7 @@ import com.github.dsaouda.listadesejos.model.ProdutoDao;
 import com.github.dsaouda.listadesejos.repository.LoginRepo;
 import com.github.dsaouda.listadesejos.repository.ProdutoRepo;
 import com.github.dsaouda.listadesejos.view.adapter.ProdutoListaAdapter;
+import com.github.dsaouda.listadesejos.view.holder.ProdutoViewHolder;
 
 import java.util.List;
 
@@ -65,11 +68,11 @@ public class MainActivity extends AppCompatActivity
 
         switch (resultCode) {
             case RESULT_CANCELED:
-                Toast.makeText(MainActivity.this, "Cancelado", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.cancelado), Toast.LENGTH_LONG).show();
                 break;
 
             case 201:
-                Toast.makeText(MainActivity.this, "Produto salvo com sucesso", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.produto_salvo_sucesso), Toast.LENGTH_LONG).show();
                 loadRecycleViewEnderecoLista();
                 break;
         }
@@ -87,19 +90,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             final LoginDao loginDao = daoSession.getLoginDao();
             final LoginRepo loginRepo = new LoginRepo(loginDao);
@@ -120,19 +118,22 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_produto) {
-            // Handle the camera action
-        } else if (id == R.id.nav_login) {
-
-        } else if (id == R.id.nav_splashscreen) {
-
-        } else if (id == R.id.nav_sobre) {
-
+        switch(id) {
+            case R.id.nav_produto:
+                startActivityForResult(new Intent(this, ProdutoActivity.class), 200);
+                break;
+            case R.id.nav_login:
+                startActivityForResult(new Intent(this, LoginActivity.class), 200);
+                break;
+            case R.id.nav_splashscreen:
+                startActivityForResult(new Intent(this, SplashScreenActivity.class), 200);
+                break;
+            case R.id.nav_sobre:
+                startActivityForResult(new Intent(this, SobreActivity.class), 200);
+                break;
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         repo = new ProdutoRepo(dao);
 
         loadRecycleViewEnderecoLista();
+        loadSwipe();
         loadToolbar();
         loadFabButton();
         loadToogle();
@@ -189,9 +191,9 @@ public class MainActivity extends AppCompatActivity
 
         rvProdutoLista.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
 
-        /*
-        //swipe
+    private void loadSwipe() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -201,13 +203,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 Snackbar.make(viewHolder.itemView, "Deletado", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                ((EnderecoViewHolder)viewHolder).removerEndereco();
+                ((ProdutoViewHolder)viewHolder).removerEndereco();
             }
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(rvEnderecoLista);
-        */
-
+        itemTouchHelper.attachToRecyclerView(rvProdutoLista);
     }
 }

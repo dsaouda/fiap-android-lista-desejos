@@ -1,10 +1,17 @@
 package com.github.dsaouda.listadesejos;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.Produto;
@@ -14,7 +21,12 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,6 +54,9 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     @BindView(R.id.etInformacao)
     EditText etInformacao;
 
+    @BindView(R.id.ivProduto)
+    ImageView ivProduto;
+
     private Validator validator;
 
     private Produto produto;
@@ -67,9 +82,73 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         validator.validate();
     }
 
+    @OnClick(R.id.ivProduto)
+    public void selecionarImagem() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+        intent.putExtra("outputX", 256);
+        intent.putExtra("outputY", 256);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("return-data", true);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.picture_chooser)), 300);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 300 && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                return;
+            }
+
+            Uri uri = Uri.parse(data.getDataString());
+            try {
+                InputStream is = getContentResolver().openInputStream(uri);
+
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+                int nRead;
+                byte[] bitMapData = new byte[16384];
+
+                while ((nRead = is.read(bitMapData, 0, bitMapData.length)) != -1) {
+                    buffer.write(bitMapData, 0, nRead);
+                }
+
+                buffer.flush();
+
+                System.out.println(Base64.encodeToString(bitMapData, Base64.DEFAULT));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //byte[] bitMapData = input.toByteArray();
+
+
+
+            data.getDataString();
+
+
+            Picasso.with(this)
+                    .load(uri)
+                    .noFade()
+                    .placeholder(R.drawable.ic_menu_camera)
+                    .error(R.drawable.ic_menu_send)
+                    .resize(116, 116)
+                    .centerCrop()
+                    .into(ivProduto);
+
+            //ivProduto.setImageURI(uri);
+        }
+    }
+
     private void loadProduto() {
         final Bundle extras = getIntent().getExtras();
-        Long produtoId = (extras != null) ? extras.getLong("produto") : null;
+        Long produtoId = (extras != null) ? extras.getLong("forceSplash") : null;
 
         produto = dao.load(produtoId);
         if (produto != null) {

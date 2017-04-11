@@ -31,4 +31,5 @@
     <string name="author"><![CDATA[Desenvolvido por Diego Saouda <diegosaouda@gmail.com>]]></string>
     <string name="title_activity_sobre">Sobre</string>
     <string name="source">Fonte localizado no github dsaouda/fiap-android-wishlist</string>
+    <string name="picture_chooser">Escolha uma opção</string>
 </resources>

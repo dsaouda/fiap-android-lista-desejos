@@ -40,7 +40,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         final com.github.dsaouda.listadesejos.model.Login login = repo.defaultLogin();
 
-        if (login != null && login.isManterConectado()) {
+        if (login != null && login.isManterConectado() && isForceSplash() == false) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -57,6 +57,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                     ? MainActivity.class
                     : LoginActivity.class).run();
         }
+    }
+
+    private boolean isForceSplash() {
+        final Bundle extras = getIntent().getExtras();
+        boolean forceSplash = (extras != null) ? extras.getBoolean("forceSplash") : false;
+        return forceSplash;
     }
 
     private Runnable handler(final Class<?> cls) {

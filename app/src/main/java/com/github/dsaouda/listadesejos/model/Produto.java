@@ -1,5 +1,7 @@
 package com.github.dsaouda.listadesejos.model;
 
+import android.net.Uri;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
@@ -13,15 +15,17 @@ public class Produto {
 
     @NotNull
     private String nome;
+    private String uri;
     private String descricao;
     private double valor;
     private String tag;
 
-    @Generated(hash = 601775242)
-    public Produto(Long id, @NotNull String nome, String descricao, double valor,
-            String tag) {
+    @Generated(hash = 307836891)
+    public Produto(Long id, @NotNull String nome, String uri, String descricao,
+            double valor, String tag) {
         this.id = id;
         this.nome = nome;
+        this.uri = uri;
         this.descricao = descricao;
         this.valor = valor;
         this.tag = tag;
@@ -71,9 +75,16 @@ public class Produto {
         return "Produto{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", uri='" + uri + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", valor=" + valor +
                 ", tag='" + tag + '\'' +
                 '}';
+    }
+    public String getUri() {
+        return this.uri;
+    }
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 }

@@ -128,7 +128,9 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(new Intent(this, LoginActivity.class), 200);
                 break;
             case R.id.nav_splashscreen:
-                startActivityForResult(new Intent(this, SplashScreenActivity.class), 200);
+                Intent intent = new Intent(this, SplashScreenActivity.class);
+                intent.putExtra("forceSplash", true);
+                startActivityForResult(intent, 200);
                 break;
             case R.id.nav_sobre:
                 startActivityForResult(new Intent(this, SobreActivity.class), 200);

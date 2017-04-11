@@ -27,6 +27,9 @@ import com.github.dsaouda.listadesejos.view.adapter.ProdutoListaAdapter;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,75 +37,26 @@ public class MainActivity extends AppCompatActivity
     private ProdutoDao dao;
     private ProdutoRepo repo;
 
+    @BindView(R.id.rvProdutoLista)
     RecyclerView rvProdutoLista;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        daoSession = ((App) getApplication()).getDaoSession();
-        dao = daoSession.getProdutoDao();
-
-        repo = new ProdutoRepo(dao);
-
-
-        rvProdutoLista = (RecyclerView) findViewById(R.id.rvProdutoLista);
-
-        recycleViewEnderecoLista();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-
-        // get the note DAO
-        DaoSession daoSession = ((App) getApplication()).getDaoSession();
-        final LoginDao loginDao = daoSession.getLoginDao();
-
-        //Login login = new Login("root","dsaouda");
-        //loginDao.insert(login);
-
-        /*
-        MockyService service = MockyServiceFactory.create();
-        final Call<com.github.dsaouda.listadesejos.dto.Login> login = service.login("58b9b1740f0000b614f09d2f");
-        login.enqueue(new Callback<com.github.dsaouda.listadesejos.dto.Login>() {
-            @Override
-            public void onResponse(Call<com.github.dsaouda.listadesejos.dto.Login> call, Response<com.github.dsaouda.listadesejos.dto.Login> response) {
-                System.out.println(response.body().getUsuario());
-            }
-
-            @Override
-            public void onFailure(Call<com.github.dsaouda.listadesejos.dto.Login> call, Throwable t) {
-
-            }
-        });
-        */
-
-        /*
-        System.out.println("Query 2");
-        System.out.println(new LoginRepo(loginDao).by("root", "dsaouda"));
-        */
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final Intent intent = new Intent(MainActivity.this, ProdutoActivity.class);
-                startActivityForResult(intent, 200);
-            }
-
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        init();
     }
 
     @Override
@@ -116,55 +70,10 @@ public class MainActivity extends AppCompatActivity
 
             case 201:
                 Toast.makeText(MainActivity.this, "Produto salvo com sucesso", Toast.LENGTH_LONG).show();
-                recycleViewEnderecoLista();
+                loadRecycleViewEnderecoLista();
                 break;
         }
     }
-
-
-    private void recycleViewEnderecoLista() {
-        final List<Produto> produtos = repo.loadAll();
-
-
-        //TextView tvSemEndereco = (TextView) findViewById(R.id.tvSemEndereco);
-
-        if (produtos.size() == 0) {
-            //tvSemEndereco.setVisibility(View.VISIBLE);
-            //rvEnderecoLista.setVisibility(View.INVISIBLE);
-        } else {
-            //tvSemEndereco.setVisibility(View.INVISIBLE);
-            //rvEnderecoLista.setVisibility(View.VISIBLE);
-        }
-
-        final ProdutoListaAdapter adapter = new ProdutoListaAdapter(produtos, this, dao);
-
-        rvProdutoLista.setLayoutManager(new LinearLayoutManager(this));
-        rvProdutoLista.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
-        rvProdutoLista.invalidate();
-
-        /*
-        //swipe
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                Snackbar.make(viewHolder.itemView, "Deletado", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                ((EnderecoViewHolder)viewHolder).removerEndereco();
-            }
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(rvEnderecoLista);
-        */
-
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -228,5 +137,77 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void init() {
+        ButterKnife.bind(this);
+        rvProdutoLista.setLayoutManager(new LinearLayoutManager(this));
+
+        daoSession = ((App) getApplication()).getDaoSession();
+        dao = daoSession.getProdutoDao();
+        repo = new ProdutoRepo(dao);
+
+        loadRecycleViewEnderecoLista();
+        loadToolbar();
+        loadFabButton();
+        loadToogle();
+        loadNavigationView();
+    }
+
+    private void loadNavigationView() {
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void loadToogle() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    private void loadToolbar() {
+        setSupportActionBar(toolbar);
+    }
+
+    private void loadFabButton() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(MainActivity.this, ProdutoActivity.class);
+                startActivityForResult(intent, 200);
+            }
+
+        });
+    }
+
+    private void loadRecycleViewEnderecoLista() {
+        final List<Produto> produtos = repo.loadAll();
+        final ProdutoListaAdapter adapter = new ProdutoListaAdapter(produtos, this, dao);
+
+        findViewById(R.id.tvSemProduto)
+                .setVisibility(produtos.size() == 0 ? View.VISIBLE : View.INVISIBLE);
+
+        rvProdutoLista.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        /*
+        //swipe
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                Snackbar.make(viewHolder.itemView, "Deletado", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                ((EnderecoViewHolder)viewHolder).removerEndereco();
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(rvEnderecoLista);
+        */
+
     }
 }

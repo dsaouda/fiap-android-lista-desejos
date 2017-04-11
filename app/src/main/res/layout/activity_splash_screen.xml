@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash_screen"
     android:layout_width="match_parent"
@@ -9,20 +9,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SplashScreenActivity"
     android:background="@color/background_splash">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        android:src="@drawable/shopping_cart_128"
+        android:layout_marginLeft="-30dp"
+        android:src="@drawable/shopping_cart_256"
         android:id="@+id/ivLogo"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SplashScreenFont"
         android:layout_below="@id/ivLogo"
-        android:textStyle="bold|italic"
-        android:textColor="#000000"
+        android:textAlignment="center"
         android:text="@string/application_name" />
-</RelativeLayout>
+
+</LinearLayout>

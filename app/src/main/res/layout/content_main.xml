@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.github.dsaouda.listadesejos.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    android:layout_marginTop="60dp">
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvProdutoLista"
@@ -16,4 +14,11 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvSemProduto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:text="@string/nenhum_item_cadastrado"/>
+
+</RelativeLayout>

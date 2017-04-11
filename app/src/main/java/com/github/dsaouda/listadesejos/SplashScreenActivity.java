@@ -21,7 +21,6 @@ import retrofit2.Call;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static final int SPLASH_DISPLAY_LENGTH = 3000;
-    private ImageView ivLogo;
 
     private final MockyService service = MockyServiceFactory.create();
     private final Call<Login> call = service.login("58b9b1740f0000b614f09d2f");
@@ -50,16 +49,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         manager = new LoginManager(dao, repo);
 
-        ivLogo = (ImageView) findViewById(R.id.ivLogo);
-
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.animacao_splash_screen);
-        anim.reset();
-
-        if (ivLogo != null) {
-            ivLogo.clearAnimation();
-            ivLogo.startAnimation(anim);
-        }
-
         if (login == null) {
             final LoginCallback callback = new LoginCallback(manager, this.handler(LoginActivity.class));
             call.enqueue(callback);
@@ -78,9 +67,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(SplashScreenActivity.this, cls);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
                         SplashScreenActivity.this.finish();
+
                     }
                 }, SPLASH_DISPLAY_LENGTH);
             }

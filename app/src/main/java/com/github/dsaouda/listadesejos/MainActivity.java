@@ -191,7 +191,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            final LoginDao loginDao = daoSession.getLoginDao();
+            final LoginRepo loginRepo = new LoginRepo(loginDao);
+            final Login login = loginRepo.defaultLogin();
+
+            login.setManterConectado(false);
+            loginDao.insertOrReplace(login);
+
+            finish();
+            System.exit(0);
+
             return true;
         }
 
@@ -204,19 +214,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_produto) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_login) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_splashscreen) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_sobre) {
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

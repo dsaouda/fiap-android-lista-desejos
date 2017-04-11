@@ -3,7 +3,6 @@ package com.github.dsaouda.listadesejos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,19 +14,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dsaouda.listadesejos.model.DaoSession;
+import com.github.dsaouda.listadesejos.model.Login;
 import com.github.dsaouda.listadesejos.model.LoginDao;
 import com.github.dsaouda.listadesejos.model.Produto;
 import com.github.dsaouda.listadesejos.model.ProdutoDao;
+import com.github.dsaouda.listadesejos.repository.LoginRepo;
 import com.github.dsaouda.listadesejos.repository.ProdutoRepo;
 import com.github.dsaouda.listadesejos.view.adapter.ProdutoListaAdapter;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +43,9 @@ public class MainActivity extends AppCompatActivity
 
         daoSession = ((App) getApplication()).getDaoSession();
         dao = daoSession.getProdutoDao();
+
         repo = new ProdutoRepo(dao);
+
 
         rvProdutoLista = (RecyclerView) findViewById(R.id.rvProdutoLista);
 

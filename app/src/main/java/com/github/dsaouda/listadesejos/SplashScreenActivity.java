@@ -38,6 +38,16 @@ public class SplashScreenActivity extends AppCompatActivity {
         daoSession = ((App) getApplication()).getDaoSession();
         dao = daoSession.getLoginDao();
         repo = new LoginRepo(dao);
+
+        final com.github.dsaouda.listadesejos.model.Login login = repo.defaultLogin();
+
+        if (login != null && login.isManterConectado()) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return ;
+        }
+
         manager = new LoginManager(dao, repo);
 
         ivLogo = (ImageView) findViewById(R.id.ivLogo);
@@ -50,18 +60,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             ivLogo.startAnimation(anim);
         }
 
-        if (repo.loadAll().size() == 0) {
-            Log.i(this.getClass().getSimpleName(), "criando novo login");
-            call.enqueue(new LoginCallback(manager, this.handler(LoginActivity.class)));
+        if (login == null) {
+            final LoginCallback callback = new LoginCallback(manager, this.handler(LoginActivity.class));
+            call.enqueue(callback);
         } else {
-            Log.i(this.getClass().getSimpleName(), "login já existe");
-
-            Class<?> cls = LoginActivity.class;
-            if (repo.loadAll().get(0).isManterConectado()) {
-                cls = MainActivity.class;
-            }
-
-            SplashScreenActivity.this.handler(cls).run();
+            SplashScreenActivity.this.handler(login.isManterConectado()
+                    ? MainActivity.class
+                    : LoginActivity.class).run();
         }
     }
 

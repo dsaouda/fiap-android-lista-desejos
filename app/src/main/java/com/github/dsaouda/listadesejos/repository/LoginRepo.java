@@ -16,6 +16,11 @@ public class LoginRepo {
         this.dao = dao;
     }
 
+    public Login defaultLogin() {
+        final List<Login> logins = dao.loadAll();
+        return logins.size() > 0 ? logins.get(0) : null;
+    }
+
     public Login by(String usuario, String senha) {
         final Query<Login> build = dao.queryBuilder().where(Usuario.eq(usuario), Senha.eq(senha)).build();
         return build.unique();

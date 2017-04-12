@@ -2,6 +2,7 @@ package com.github.dsaouda.listadesejos;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -123,6 +124,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
                 System.out.println(Base64.encodeToString(bitMapData, Base64.DEFAULT));
 
             } catch (IOException e) {
+                System.out.println("ERRO");
                 e.printStackTrace();
             }
 
@@ -131,7 +133,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
 
             data.getDataString();
-
+            System.out.println(getRealPathFromURI(uri));
 
             Picasso.with(this)
                     .load(uri)
@@ -144,6 +146,21 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
             //ivProduto.setImageURI(uri);
         }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+
+        return result;
     }
 
     private void loadProduto() {

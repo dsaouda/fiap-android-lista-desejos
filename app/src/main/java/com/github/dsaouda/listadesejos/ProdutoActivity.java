@@ -1,13 +1,18 @@
 package com.github.dsaouda.listadesejos;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
@@ -25,6 +30,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +42,7 @@ import butterknife.OnClick;
 
 public class ProdutoActivity extends AppCompatActivity implements Validator.ValidationListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 9991;
     private DaoSession daoSession;
     private ProdutoDao dao;
     private ProdutoRepo repo;
@@ -61,6 +68,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     private Validator validator;
 
     private Produto produto;
+    private String pathImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +93,33 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
     @OnClick(R.id.ivProduto)
     public void selecionarImagem() {
+
+        /*
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+        */
+
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         intent.setType("image/*");
@@ -101,52 +136,37 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 300 && resultCode == Activity.RESULT_OK) {
             if (data == null) {
                 return;
             }
 
             Uri uri = Uri.parse(data.getDataString());
-            try {
-                InputStream is = getContentResolver().openInputStream(uri);
-
-                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-                int nRead;
-                byte[] bitMapData = new byte[16384];
-
-                while ((nRead = is.read(bitMapData, 0, bitMapData.length)) != -1) {
-                    buffer.write(bitMapData, 0, nRead);
-                }
-
-                buffer.flush();
-
-                System.out.println(Base64.encodeToString(bitMapData, Base64.DEFAULT));
-
-            } catch (IOException e) {
-                System.out.println("ERRO");
-                e.printStackTrace();
-            }
-
-            //byte[] bitMapData = input.toByteArray();
-
-
-
-            data.getDataString();
-            System.out.println(getRealPathFromURI(uri));
+            pathImage = getRealPathFromURI(uri);
 
             Picasso.with(this)
-                    .load(uri)
+                    .load(new File(pathImage))
                     .noFade()
                     .placeholder(R.drawable.ic_menu_camera)
-                    .error(R.drawable.ic_menu_send)
+                    .error(R.drawable.ic_menu_camera)
                     .resize(116, 116)
                     .centerCrop()
                     .into(ivProduto);
-
-            //ivProduto.setImageURI(uri);
         }
     }
+
+    /*
+    private String toBase64(Uri uri) {
+        File file = new File(getRealPathFromURI(uri));
+        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return encoded;
+    }
+    */
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
@@ -170,7 +190,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         produto = dao.load(produtoId);
         if (produto != null) {
             etProduto.setText(produto.getNome());
-            etTag.setText(produto.getTag());
+            etTag.setText(produto.getTag()+produto.getImage());
             etValor.setText(String.valueOf(produto.getValor()));
             etInformacao.setText(produto.getDescricao());
         }
@@ -182,6 +202,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
             produto = new Produto();
         }
 
+        produto.setImage(pathImage);
         produto.setNome(etProduto.getText().toString());
         produto.setDescricao(etInformacao.getText().toString());
         produto.setValor(Double.parseDouble(etValor.getText().toString()));

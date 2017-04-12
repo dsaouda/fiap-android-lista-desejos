@@ -10,6 +10,7 @@
     android:background="?android:selectableItemBackground">
 
     <ImageView
+        android:id="@+id/ivItemProduto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/shopping_cart_48"/>

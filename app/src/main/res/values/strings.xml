@@ -38,6 +38,7 @@
     <string name="url_produto">URL Produto</string>
     <string name="url_not_valid">URL não é válida</string>
     <string name="url_not_supported">Essa URL não é suportada</string>
+    <string name="image_fallback">Imagem será substituida após digitação da url</string>
 
     <string-array name="tag_produtos">
         <item>todos os departamentos</item>

@@ -88,7 +88,8 @@ public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.O
                         break;
 
                     case R.id.menuVisualizarExterno:
-
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(produto.getUrl()));
+                        view.getContext().startActivity(browserIntent);
                         break;
                 }
 

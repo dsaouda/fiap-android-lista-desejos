@@ -1,33 +1,16 @@
 package com.github.dsaouda.listadesejos;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.github.dsaouda.listadesejos.factory.B2WServiceFactory;
 import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.Produto;
 import com.github.dsaouda.listadesejos.model.ProdutoDao;
-import com.github.dsaouda.listadesejos.repository.ProdutoRepo;
-import com.github.dsaouda.listadesejos.service.B2WService;
 import com.github.dsaouda.listadesejos.task.ProdutoTask;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -71,10 +54,8 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     @BindView(R.id.etUrlProduto)
     EditText etUrlProduto;
 
-
     private Validator validator;
     private Produto produto;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,8 +131,6 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     }
 
     private int selecionarValorSpinner(String valor) {
-        System.out.println(valor);
-
         if (valor == null || valor.isEmpty()) {
             return 0;
         }
@@ -193,8 +172,6 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         etProduto.setText(produto.getNome());
         etValor.setText(String.valueOf(produto.getValor()));
 
-        System.out.println(produto);
-
         this.produto.setImage(produto.getImage());
         Picasso.with(ProdutoActivity.this)
                 .load(produto.getImage())
@@ -210,119 +187,8 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         etUrlProduto.setError(s);
     }
 
-    /*
-    SELECIONE UMA FOTO INTERNA - REMOVIDO DA V1
-
-    @OnFocusChange(R.id.etUrlFoto)
-    public void mudarFotoProduto() {
-        String url = etUrlFoto.getText().toString();
-
-        try {
-            new URL(url);
-        } catch (MalformedURLException e) {
-            return ;
-        }
-
-        Picasso.with(ProdutoActivity.this)
-                .load(url)
-                .noFade()
-                .placeholder(R.drawable.ic_menu_camera)
-                .error(R.mipmap.ic_error)
-                .resize(116, 116)
-                .centerCrop()
-                .into(ivProduto);
-    }
-
-
     @OnClick(R.id.ivProduto)
-    public void selecionarImagem() {
-
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
-
-
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("scale", true);
-        intent.putExtra("outputX", 256);
-        intent.putExtra("outputY", 256);
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("return-data", true);
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.picture_chooser)), 300);
+    public void onClickImageView() {
+        Toast.makeText(this, R.string.image_fallback, Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 300 && resultCode == Activity.RESULT_OK) {
-            if (data == null) {
-                return;
-            }
-
-            Uri uri = Uri.parse(data.getDataString());
-            pathImage = getRealPathFromURI(uri);
-
-            Picasso.with(this)
-                    .load(new File(pathImage))
-                    .noFade()
-                    .placeholder(R.drawable.ic_menu_camera)
-                    .error(R.drawable.ic_menu_camera)
-                    .resize(116, 116)
-                    .centerCrop()
-                    .into(ivProduto);
-        }
-    }
-    */
-
-    /*
-    private String toBase64(Uri uri) {
-        File file = new File(getRealPathFromURI(uri));
-        Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        return encoded;
-    }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-
-        return result;
-    }
-    */
 }

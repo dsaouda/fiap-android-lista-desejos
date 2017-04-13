@@ -39,7 +39,6 @@ public class ProdutoTask extends AsyncTask<URL, Void, Produto> {
             final Produto produto = service.getProduto(url);
             return produto;
         } catch (RuntimeException e) {
-            activity.setErrorEditTextURL(activity.getString(R.string.url_not_supported));
             return null;
         }
     }
@@ -48,6 +47,8 @@ public class ProdutoTask extends AsyncTask<URL, Void, Produto> {
     protected void onPostExecute(Produto produto) {
         if (produto != null) {
             activity.preencherCampos(produto);
+        } else {
+            activity.setErrorEditTextURL(activity.getString(R.string.url_not_supported));
         }
 
         pgLoading.hide();

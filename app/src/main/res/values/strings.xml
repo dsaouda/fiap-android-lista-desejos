@@ -20,7 +20,7 @@
     <string name="valor">Valor</string>
     <string name="descricao">Informações do produto</string>
     <string name="salvar">Salvar</string>
-    <string name="tag">Tags (Separe por ;)</string>
+    <string name="tag">Tags</string>
     <string name="visualizar_no_site">Visualizar no site</string>
     <string name="deletar">Deletar</string>
     <string name="editar">Editar</string>
@@ -32,4 +32,53 @@
     <string name="title_activity_sobre">Sobre</string>
     <string name="source">Fonte localizado no github dsaouda/fiap-android-wishlist</string>
     <string name="picture_chooser">Escolha uma opção</string>
+    <string name="url_foto">URL Foto produto</string>
+    <string name="close">Fechar</string>
+    <string name="select_category">Selecione uma categoria</string>
+    <string name="url_produto">URL Produto</string>
+    <string name="url_not_valid">URL não é válida</string>
+    <string name="url_not_supported">Essa URL não é suportada</string>
+
+    <string-array name="tag_produtos">
+        <item>todos os departamentos</item>
+        <item>alimentos e bebidas</item>
+        <item>áudio</item>
+        <item>automotivo</item>
+        <item>ar condicionado e ventilação</item>
+        <item>bebês</item>
+        <item><![CDATA[beleza & perfumaria]]></item>
+        <item>blu-ray e blu-ray 3D</item>
+        <item>brinquedos</item>
+        <item>cama, mesa e banho</item>
+        <item>câmeras e filmadoras</item>
+        <item>casa e construção novo</item>
+        <item>celulares e smatphones</item>
+        <item>decoração</item>
+        <item>eletrodomésticos</item>
+        <item>eletroportáteis</item>
+        <item>esporte e lazer</item>
+        <item>ferramentas e jardim</item>
+        <item>filmes e séries</item>
+        <item>games</item>
+        <item>indústria, comércio e negócios</item>
+        <item>informática</item>
+        <item>informática e acessórios</item>
+        <item>instrumentos musicais</item>
+        <item>linha industrial novo</item>
+        <item>livros</item>
+        <item>malas e acessórios</item>
+        <item>moda e acessórios</item>
+        <item>móveis</item>
+        <item>música</item>
+        <item>papelaria</item>
+        <item>páscoa novo</item>
+        <item>pet shop</item>
+        <item>relógios</item>
+        <item>saúde</item>
+        <item>sinalização e segurança</item>
+        <item>suplementos e vitaminas</item>
+        <item>telefonia fixa</item>
+        <item>tv e áudio</item>
+        <item>utilidades domésticas</item>
+    </string-array>
 </resources>

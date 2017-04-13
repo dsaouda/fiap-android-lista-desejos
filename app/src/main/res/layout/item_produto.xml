@@ -11,20 +11,21 @@
 
     <ImageView
         android:id="@+id/ivItemProduto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="116dp"
         android:src="@drawable/shopping_cart_48"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/tvProduto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:hint="Produto" />
 
         <TextView

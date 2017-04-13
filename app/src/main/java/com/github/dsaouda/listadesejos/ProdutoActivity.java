@@ -16,36 +16,40 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.github.dsaouda.listadesejos.factory.B2WServiceFactory;
 import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.Produto;
 import com.github.dsaouda.listadesejos.model.ProdutoDao;
 import com.github.dsaouda.listadesejos.repository.ProdutoRepo;
+import com.github.dsaouda.listadesejos.service.B2WService;
+import com.github.dsaouda.listadesejos.task.ProdutoTask;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Url;
 import com.squareup.picasso.Picasso;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 public class ProdutoActivity extends AppCompatActivity implements Validator.ValidationListener {
 
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 9991;
     private DaoSession daoSession;
     private ProdutoDao dao;
-    private ProdutoRepo repo;
 
     @NotEmpty(message = "Campo deve ser preenchido")
     @BindView(R.id.etProduto)
@@ -56,19 +60,21 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     @BindView(R.id.etValor)
     EditText etValor;
 
-    @BindView(R.id.etTag)
-    EditText etTag;
-
-    @BindView(R.id.etInformacao)
-    EditText etInformacao;
+    @BindView(R.id.spTag)
+    SearchableSpinner spTag;
 
     @BindView(R.id.ivProduto)
     ImageView ivProduto;
 
-    private Validator validator;
+    @NotEmpty(message = "Campo deve ser preenchido")
+    @Url(message = "URL não é válida")
+    @BindView(R.id.etUrlProduto)
+    EditText etUrlProduto;
 
+
+    private Validator validator;
     private Produto produto;
-    private String pathImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +86,35 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
         daoSession = ((App) getApplication()).getDaoSession();
         dao = daoSession.getProdutoDao();
-        repo = new ProdutoRepo(dao);
 
+        loadSpinner();
         loadProduto();
+    }
+
+    @OnFocusChange(R.id.etUrlProduto)
+    public void buscarProduto(View v, boolean hasFocus) {
+
+        if (hasFocus == true) {
+            return ;
+        }
+
+        String urlStr = etUrlProduto.getText().toString();
+
+        try {
+            final URL url = new URL(urlStr);
+            new ProdutoTask(this).execute(url);
+        } catch (MalformedURLException e) {
+            etUrlProduto.setError(getString(R.string.url_not_valid));
+            return ;
+        }
+    }
+
+    private void loadSpinner() {
+        spTag.setTitle(getString(R.string.select_category));
+        spTag.setPositiveButton(getString(R.string.close));
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.tag_produtos));
+        spTag.setAdapter(spinnerArrayAdapter);
     }
 
     @OnClick(R.id.btnSalvar)
@@ -91,10 +123,120 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         validator.validate();
     }
 
+    private void loadProduto() {
+        final Bundle extras = getIntent().getExtras();
+        Long produtoId = (extras != null) ? extras.getLong("produto") : null;
+
+        produto = dao.load(produtoId);
+        if (produto != null) {
+
+            Picasso.with(ProdutoActivity.this)
+                    .load(produto.getImage())
+                    .noFade()
+                    .placeholder(R.drawable.ic_menu_camera)
+                    .error(R.mipmap.ic_error)
+                    .resize(116, 116)
+                    .centerCrop()
+                    .into(ivProduto);
+
+            etUrlProduto.setText(produto.getUrl());
+            etUrlProduto.setEnabled(false);
+            etProduto.setText(produto.getNome());
+            spTag.setSelection(selecionarValorSpinner(produto.getTag()));
+            etValor.setText(String.valueOf(produto.getValor()));
+        } else {
+            produto = new Produto();
+        }
+    }
+
+    private int selecionarValorSpinner(String valor) {
+        System.out.println(valor);
+
+        if (valor == null || valor.isEmpty()) {
+            return 0;
+        }
+
+        return ((ArrayAdapter<String>)spTag.getAdapter()).getPosition(valor);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        produto.setUrl(etUrlProduto.getText().toString());
+        produto.setNome(etProduto.getText().toString());
+        produto.setValor(Double.parseDouble(etValor.getText().toString()));
+        produto.setTag(spTag.getSelectedItem().toString());
+
+        dao.insertOrReplace(produto);
+        voltarTelaAnterior();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void voltarTelaAnterior() {
+        setResult(201, new Intent());
+        finish();
+    }
+
+    public void preencherCampos(com.github.dsaouda.listadesejos.dto.Produto produto) {
+        etProduto.setText(produto.getNome());
+        etValor.setText(String.valueOf(produto.getValor()));
+
+        System.out.println(produto);
+
+        this.produto.setImage(produto.getImage());
+        Picasso.with(ProdutoActivity.this)
+                .load(produto.getImage())
+                .noFade()
+                .placeholder(R.drawable.ic_menu_camera)
+                .error(R.mipmap.ic_error)
+                .resize(116, 116)
+                .centerCrop()
+                .into(ivProduto);
+    }
+
+    public void setErrorEditTextURL(String s) {
+        etUrlProduto.setError(s);
+    }
+
+    /*
+    SELECIONE UMA FOTO INTERNA - REMOVIDO DA V1
+
+    @OnFocusChange(R.id.etUrlFoto)
+    public void mudarFotoProduto() {
+        String url = etUrlFoto.getText().toString();
+
+        try {
+            new URL(url);
+        } catch (MalformedURLException e) {
+            return ;
+        }
+
+        Picasso.with(ProdutoActivity.this)
+                .load(url)
+                .noFade()
+                .placeholder(R.drawable.ic_menu_camera)
+                .error(R.mipmap.ic_error)
+                .resize(116, 116)
+                .centerCrop()
+                .into(ivProduto);
+    }
+
+
     @OnClick(R.id.ivProduto)
     public void selecionarImagem() {
 
-        /*
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -118,7 +260,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
                 // result of the request.
             }
         }
-        */
+
 
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -155,6 +297,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
                     .into(ivProduto);
         }
     }
+    */
 
     /*
     private String toBase64(Uri uri) {
@@ -166,7 +309,6 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return encoded;
     }
-    */
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
@@ -182,52 +324,5 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
         return result;
     }
-
-    private void loadProduto() {
-        final Bundle extras = getIntent().getExtras();
-        Long produtoId = (extras != null) ? extras.getLong("forceSplash") : null;
-
-        produto = dao.load(produtoId);
-        if (produto != null) {
-            etProduto.setText(produto.getNome());
-            etTag.setText(produto.getTag()+produto.getImage());
-            etValor.setText(String.valueOf(produto.getValor()));
-            etInformacao.setText(produto.getDescricao());
-        }
-    }
-
-    @Override
-    public void onValidationSucceeded() {
-        if (produto == null) {
-            produto = new Produto();
-        }
-
-        produto.setImage(pathImage);
-        produto.setNome(etProduto.getText().toString());
-        produto.setDescricao(etInformacao.getText().toString());
-        produto.setValor(Double.parseDouble(etValor.getText().toString()));
-        produto.setTag(etTag.getText().toString());
-
-        dao.insertOrReplace(produto);
-        voltarTelaAnterior();
-    }
-
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
-
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void voltarTelaAnterior() {
-        setResult(201, new Intent());
-        finish();
-    }
+    */
 }

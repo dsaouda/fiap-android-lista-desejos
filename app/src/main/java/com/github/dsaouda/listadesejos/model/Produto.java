@@ -18,20 +18,22 @@ public class Produto {
     private String descricao;
     private double valor;
     private String tag;
+    private String url;
 
     public Produto(String nome) {
         this.nome = nome;
     }
 
-    @Generated(hash = 138302014)
+    @Generated(hash = 1592842849)
     public Produto(Long id, @NotNull String nome, String image, String descricao,
-            double valor, String tag) {
+            double valor, String tag, String url) {
         this.id = id;
         this.nome = nome;
         this.image = image;
         this.descricao = descricao;
         this.valor = valor;
         this.tag = tag;
+        this.url = url;
     }
 
     @Generated(hash = 1436078576)
@@ -86,15 +88,16 @@ public class Produto {
         this.tag = tag;
     }
 
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
-        return "Produto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", image='" + image + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", valor=" + valor +
-                ", tag='" + tag + '\'' +
-                '}';
+        return super.toString();
     }
 }

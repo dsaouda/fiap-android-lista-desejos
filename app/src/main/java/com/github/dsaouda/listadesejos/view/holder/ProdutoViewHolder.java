@@ -17,8 +17,6 @@ import com.github.dsaouda.listadesejos.model.ProdutoDao;
 import com.github.dsaouda.listadesejos.view.adapter.ProdutoListaAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-
 public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
     private final ImageView ivItemProduto;
@@ -51,7 +49,7 @@ public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.O
         this.produto = produto;
 
         Picasso.with(view.getContext())
-                .load(new File(produto.getImage()))
+                .load(produto.getImage())
                 .noFade()
                 .placeholder(R.drawable.ic_menu_gallery)
                 .error(R.drawable.ic_menu_gallery)
@@ -60,7 +58,7 @@ public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.O
                 .into(ivItemProduto);
 
         tvProduto.setText(produto.getNome());
-        tvValor.setText(String.valueOf(produto.getValor()));
+        tvValor.setText("R$ " + String.valueOf(produto.getValor()));
         tvTag.setText(produto.getTag());
     }
 

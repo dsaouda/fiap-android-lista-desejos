@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.github.dsaouda.listadesejos.api.MockyService;
 import com.github.dsaouda.listadesejos.callback.LoginCallback;

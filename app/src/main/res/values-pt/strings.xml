@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de desejos</string>
+    <string name="about">Sobre</string>
+    <string name="action_logout">Sair</string>
+    <string name="action_sign_in_short">Acessar</string>
+    <string name="application_name">Lista de desejos</string>
+    <string name="author"><![CDATA[Desenvolvido por Diego Saouda <diegosaouda@gmail.com>]]></string>
+    <string name="cancel">Cancelado</string>
+    <string name="close">Fechar</string>
+    <string name="delete">Deletar</string>
+    <string name="digits_not_valid">Valor não é válido</string>
+    <string name="edit">Editar</string>
+    <string name="error_message">Login e/ou senha incorreto</string>
+    <string name="field_require">Campo obrigatório</string>
+    <string name="image_fallback">Imagem será substituída após digitação da URL</string>
+    <string name="keep_connected">Manter conectado</string>
+    <string name="navigation_drawer_close">Fechar navegação</string>
+    <string name="navigation_drawer_open">Abrir navegação</string>
+    <string name="new_product">Novo produto</string>
+    <string name="no_items_registered">Nenhum produto registrado</string>
+    <string name="picture_chooser">Escolha uma opção</string>
+    <string name="product">Produto</string>
+    <string name="product_success_save">Produto salvo com sucesso</string>
+    <string name="prompt_password">Senha</string>
+    <string name="save">Salvar</string>
+    <string name="search_product_data">Buscando produto ...</string>
+    <string name="select_category">Selecionar categoria</string>
+    <string name="source">Fonte no github\ndsaouda/fiap-android-wishlist</string>
+    <string name="title_activity_about">Sobre</string>
+    <string name="title_activity_produto">Produto</string>
+    <string name="title_activity_splash_screen">Lista de desejos</string>
+    <string name="url_not_supported">Essa URL não é suportada</string>
+    <string name="url_not_valid">URL não é válida</string>
+    <string name="url_product">URL produto</string>
+    <string name="username">Nome de usuário</string>
+    <string name="value">Valor</string>
+    <string name="view_in_site">Visualizar no site</string>
+
+    <string-array name="tag_product">
+        <item>todos os departamentos</item>
+        <item>alimentos e bebidas</item>
+        <item>áudio</item>
+        <item>automotivo</item>
+        <item>ar condicionado e ventilação</item>
+        <item>bebês</item>
+        <item><![CDATA[beleza & perfumaria]]></item>
+        <item>blu-ray e blu-ray 3D</item>
+        <item>brinquedos</item>
+        <item>cama, mesa e banho</item>
+        <item>câmeras e filmadoras</item>
+        <item>casa e construção novo</item>
+        <item>celulares e smatphones</item>
+        <item>decoração</item>
+        <item>eletrodomésticos</item>
+        <item>eletroportáteis</item>
+        <item>esporte e lazer</item>
+        <item>ferramentas e jardim</item>
+        <item>filmes e séries</item>
+        <item>games</item>
+        <item>indústria, comércio e negócios</item>
+        <item>informática</item>
+        <item>informática e acessórios</item>
+        <item>instrumentos musicais</item>
+        <item>linha industrial novo</item>
+        <item>livros</item>
+        <item>malas e acessórios</item>
+        <item>moda e acessórios</item>
+        <item>móveis</item>
+        <item>música</item>
+        <item>papelaria</item>
+        <item>páscoa novo</item>
+        <item>pet shop</item>
+        <item>relógios</item>
+        <item>saúde</item>
+        <item>sinalização e segurança</item>
+        <item>suplementos e vitaminas</item>
+        <item>telefonia fixa</item>
+        <item>tv e áudio</item>
+        <item>utilidades domésticas</item>
+    </string-array>
+</resources>

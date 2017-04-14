@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">WishList</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_splash_screen">WishList</string>
+    <string name="application_name">WishList</string>
+    <string name="title_activity_login" translatable="false">Login</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="username">username</string>
+    <string name="keep_connected">Keep Connected</string>
+    <string name="error_message">Login and/or password is not valid</string>
+    <string name="title_activity_produto">Product</string>
+    <string name="product">Product</string>
+    <string name="value">Value</string>
+    <string name="save">Save</string>
+    <string name="tag" translatable="false">Tags</string>
+    <string name="view_in_site">View in site</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="no_items_registered">No items registered</string>
+    <string name="cancel">Cancel</string>
+    <string name="product_success_save">Product success save</string>
+    <string name="app_version" translatable="false">Version 1.0</string>
+    <string name="author"><![CDATA[Develop by Diego Saouda <diegosaouda@gmail.com>]]></string>
+    <string name="title_activity_about">About</string>
+    <string name="source">Source in github\ndsaouda/fiap-android-wishlist</string>
+    <string name="picture_chooser">Choose a option</string>
+    <string name="close">Close</string>
+    <string name="select_category">Select a category</string>
+    <string name="url_product">URL Product</string>
+    <string name="url_not_valid">URL not is valid</string>
+    <string name="url_not_supported">This URL is not supported</string>
+    <string name="image_fallback">Image is replaced after URL is set</string>
+    <string name="field_require">Field is require</string>
+    <string name="digits_not_valid">Value is not valid</string>
+    <string name="search_product_data">Search data of product ...</string>
+    <string name="about">About</string>
+    <string name="new_product">New Product</string>
+
+    <string-array name="tag_product">
+        <item>all departments</item>
+        <item>food and drink</item>
+        <item>audio</item>
+        <item>automotive</item>
+        <item>air conditioning and ventilation</item>
+        <item>babies</item>
+        <item><![CDATA[beauty & perfumery]]></item>
+        <item>blu-ray and blu-ray 3D</item>
+        <item>toys</item>
+        <item>bed, table and bath</item>
+        <item>cameras and camcorders</item>
+        <item>house and new construction</item>
+        <item>cell phones and smatphones</item>
+        <item>decoration</item>
+        <item>home appliances</item>
+        <item>electroportable</item>
+        <item>sport and leisure</item>
+        <item>tools and garden</item>
+        <item>movies and series</item>
+        <item>games</item>
+        <item>industry, commerce and business</item>
+        <item>computing</item>
+        <item>computer and accessories</item>
+        <item>musical instruments</item>
+        <item>new industrial line</item>
+        <item>books</item>
+        <item>bags and accessories</item>
+        <item>fashion and accessories</item>
+        <item>furniture</item>
+        <item>music</item>
+        <item>stationery</item>
+        <item>new easter</item>
+        <item>pet shop</item>
+        <item>watches</item>
+        <item>health</item>
+        <item>signaling and security</item>
+        <item>supplements and vitamins</item>
+        <item>fixed telephony</item>
+        <item>tv and audio</item>
+        <item>household goods</item>
+    </string-array>
+</resources>

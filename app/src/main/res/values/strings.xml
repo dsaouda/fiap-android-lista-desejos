@@ -5,7 +5,7 @@
     <string name="action_logout">Logout</string>
     <string name="title_activity_splash_screen">WishList</string>
     <string name="application_name">WishList</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login" translatable="false">Login</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="username">username</string>
@@ -15,14 +15,14 @@
     <string name="product">Product</string>
     <string name="value">Value</string>
     <string name="save">Save</string>
-    <string name="tag">Tags</string>
+    <string name="tag" translatable="false">Tags</string>
     <string name="view_in_site">View in site</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="no_items_registered">No items registered</string>
-    <string name="cancel">Cancelado</string>
+    <string name="cancel">Cancel</string>
     <string name="product_success_save">Product success save</string>
-    <string name="app_version">Version 1.0</string>
+    <string name="app_version" translatable="false">Version 1.0</string>
     <string name="author"><![CDATA[Develop by Diego Saouda <diegosaouda@gmail.com>]]></string>
     <string name="title_activity_about">About</string>
     <string name="source">Source in github\ndsaouda/fiap-android-wishlist</string>

@@ -4,7 +4,7 @@ O objetivo desse aplicativo é gerar uma lista de produtos desejados. Atualmente
 
 # Download apk
 
-A apk pode ser baixada no seguinte endereço https://github.com/dsaouda/fiap-android-wishlist/releases/tag/1.1.0
+A apk pode ser baixada no seguinte endereço https://github.com/dsaouda/fiap-android-wishlist/releases
 
 # Acesso ao sistema
 

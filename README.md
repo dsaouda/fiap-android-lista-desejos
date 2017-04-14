@@ -1,7 +1,6 @@
 # fiap-android-wishlist
 
-O objetivo desse aplicativo é gerar uma lista de produtos desejados. Atualmente o suporte está
-apenas aos ecommerce do grupo B2W (submarino.com.br, americanas.com.br, shoptime.com.br, soubarato.com.br)
+O objetivo desse aplicativo é gerar uma lista de produtos desejados. Atualmente o suporte está apenas aos ecommerce do grupo B2W (submarino.com.br, americanas.com.br, shoptime.com.br, soubarato.com.br)
 
 # Download apk
 
@@ -9,14 +8,18 @@ A apk pode ser baixada no seguinte endereço https://github.com/dsaouda/fiap-and
 
 # Exemplo de URLs que podem ser importadas
 
+Abaixo algumas urls testadas na página de cadastro de produto:
+
  - http://www.americanas.com.br/produto/14161370/cozinha-compacta-4-pecas-poquema-julia-c1?condition=NEW
  - https://www.submarino.com.br/produto/15217270/torneira-cozinha-gourmet-monocomando-original-luxo-baixa-de-metal-cromado.?condition=NEW
  - http://www.shoptime.com.br/produto/123100044/fritadeira-sem-oleo-fun-kitchen-fritalight-retro-3l-preta?condition=NEW
  - http://www.soubarato.com.br/produto/125653312/usado-smart-tv-led-55-semp-toshiba-le55l7400-ultra-hd-4k-com-conversor-digital-integrado-3-hdmi-2-usb-wi-fi-grava-programas
 
+obs: o sistema suporta as lojas do grupo b2w (submarino, americanas, soubarato e shoptime)
+
 # Dependências
 
-Para realização do projeto foram utilizados alguma bibliotecas:
+Para realização do projeto foram utilizadas algumas bibliotecas:
 
  - org.greenrobot:greendao:3.2.2 para ORM
  - com.android.support:recyclerview-v7:25.2.0 para montar a lista de produtos

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.dsaouda.listadesejos.api.MockyService;
 import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.Login;
 import com.github.dsaouda.listadesejos.model.LoginDao;
@@ -31,15 +32,27 @@ import com.github.dsaouda.listadesejos.view.holder.ProdutoViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DaoSession daoSession;
-    private ProdutoDao dao;
-    private ProdutoRepo repo;
+    @Inject
+    ProdutoRepo produtoRepo;
+
+    @Inject
+    ProdutoDao produtoDao;
+
+    @Inject
+    LoginRepo loginRepo;
+
+    @Inject
+    LoginDao loginDao;
+
 
     @BindView(R.id.rvProdutoLista)
     RecyclerView rvProdutoLista;
@@ -58,11 +71,12 @@ public class MainActivity extends AppCompatActivity
 
     TextView tvLoginAs;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        App.getComponent().inject(this);
 
         init();
     }
@@ -104,8 +118,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            final LoginDao loginDao = daoSession.getLoginDao();
-            final LoginRepo loginRepo = new LoginRepo(loginDao);
+            ;
             final Login login = loginRepo.defaultLogin();
 
             login.setManterConectado(false);
@@ -150,10 +163,6 @@ public class MainActivity extends AppCompatActivity
 
         rvProdutoLista.setLayoutManager(new LinearLayoutManager(this));
 
-        daoSession = ((App) getApplication()).getDaoSession();
-        dao = daoSession.getProdutoDao();
-        repo = new ProdutoRepo(dao);
-
         loadLoginAs();
         loadRecycleViewEnderecoLista();
         loadSwipe();
@@ -166,7 +175,7 @@ public class MainActivity extends AppCompatActivity
     private void loadLoginAs() {
         final View headerView = navigationView.getHeaderView(0);
         tvLoginAs = (TextView) headerView.findViewById(R.id.tvLoginAs);
-        tvLoginAs.setText(new LoginRepo(daoSession.getLoginDao()).defaultLogin().getUsuario());
+        tvLoginAs.setText(loginRepo.defaultLogin().getUsuario());
     }
 
     private void loadNavigationView() {
@@ -196,8 +205,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadRecycleViewEnderecoLista() {
-        final List<Produto> produtos = repo.loadAll();
-        final ProdutoListaAdapter adapter = new ProdutoListaAdapter(produtos, this, dao);
+        final List<Produto> produtos = produtoRepo.loadAll();
+        final ProdutoListaAdapter adapter = new ProdutoListaAdapter(produtos, this, produtoDao);
 
         findViewById(R.id.tvSemProduto)
                 .setVisibility(produtos.size() == 0 ? View.VISIBLE : View.INVISIBLE);

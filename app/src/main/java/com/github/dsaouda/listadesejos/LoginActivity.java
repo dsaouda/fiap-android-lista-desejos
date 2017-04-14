@@ -13,16 +13,16 @@ import com.github.dsaouda.listadesejos.model.Login;
 import com.github.dsaouda.listadesejos.model.LoginDao;
 import com.github.dsaouda.listadesejos.repository.LoginRepo;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity  {
 
-    private DaoSession daoSession;
-    private LoginDao dao;
-    private LoginRepo repo;
-    private LoginManager manager;
+    @Inject
+    LoginManager manager;
 
     @BindView(R.id.tvError)
     TextView tvError;
@@ -41,10 +41,7 @@ public class LoginActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        daoSession = ((App) getApplication()).getDaoSession();
-        dao = daoSession.getLoginDao();
-        repo = new LoginRepo(dao);
-        manager = new LoginManager(dao, repo);
+        App.getComponent().inject(this);
 
         ButterKnife.bind(this);
     }
@@ -56,7 +53,7 @@ public class LoginActivity extends AppCompatActivity  {
         String password = etPassword.getText().toString();
         boolean keepConnected = cbKeepConnected.isChecked();
 
-        final Login login = repo.by(username, password);
+        final Login login = manager.getRepo().by(username, password);
 
         tvError.setText("");
 

@@ -35,10 +35,13 @@
     <string name="url_foto">URL Foto produto</string>
     <string name="close">Fechar</string>
     <string name="select_category">Selecione uma categoria</string>
-    <string name="url_produto">URL Produto</string>
-    <string name="url_not_valid">URL não é válida</string>
+    <string name="url_produto">URL Product</string>
+    <string name="url_not_valid">URL not is valid</string>
     <string name="url_not_supported">Essa URL não é suportada</string>
     <string name="image_fallback">Imagem será substituida após digitação da url</string>
+    <string name="field_require">Field is require</string>
+    <string name="digits_not_valid">Value is not valid</string>
+    <string name="search_product_data">Buscando dados do produto ...</string>
 
     <string-array name="tag_produtos">
         <item>todos os departamentos</item>

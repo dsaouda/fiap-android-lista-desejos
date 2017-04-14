@@ -33,18 +33,8 @@ public class B2WService {
             final Product p = response.body().getProducts().get(0);
             final PaymentOptions paymentOptions = p.getOffers().get(0).getPaymentOptions();
 
-            System.out.println(p.getImages().get(0).getMedium());
-
-            for (Image i : p.getImages()) {
-                System.out.println("\n=========================\n");
-                System.out.println("m: " + i.getMedium());
-                System.out.println("l: " + i.getLarge());
-                System.out.println("b: " + i.getBig());
-            }
-
             return new Produto(
                     p.getName(),
-                    p.getDescription(),
                     p.getImages().get(0).getMedium(),
                     paymentOptions.getBOLETO().getPrice());
 

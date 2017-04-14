@@ -2,7 +2,10 @@ package com.github.dsaouda.listadesejos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -34,12 +37,12 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     private DaoSession daoSession;
     private ProdutoDao dao;
 
-    @NotEmpty(message = "Campo deve ser preenchido")
+    @NotEmpty(messageResId = R.string.field_require)
     @BindView(R.id.etProduto)
     EditText etProduto;
 
-    @NotEmpty(message = "Campo deve ser preenchido")
-    @Digits(message = "Valor inválido. Ex: 100.10", integer = 7, fraction = 2)
+    @NotEmpty(messageResId = R.string.field_require)
+    @Digits(messageResId = R.string.digits_not_valid, integer = 7, fraction = 2)
     @BindView(R.id.etValor)
     EditText etValor;
 
@@ -49,8 +52,8 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     @BindView(R.id.ivProduto)
     ImageView ivProduto;
 
-    @NotEmpty(message = "Campo deve ser preenchido")
-    @Url(message = "URL não é válida")
+    @NotEmpty(messageResId = R.string.field_require)
+    @Url(messageResId = R.string.url_not_valid)
     @BindView(R.id.etUrlProduto)
     EditText etUrlProduto;
 
@@ -59,6 +62,9 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produto);
 
@@ -70,6 +76,9 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
         loadSpinner();
         loadProduto();
+
+
+
     }
 
     @OnFocusChange(R.id.etUrlProduto)
@@ -110,16 +119,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
         produto = dao.load(produtoId);
         if (produto != null) {
-
-            Picasso.with(ProdutoActivity.this)
-                    .load(produto.getImage())
-                    .noFade()
-                    .placeholder(R.drawable.ic_menu_camera)
-                    .error(R.mipmap.ic_error)
-                    .resize(116, 116)
-                    .centerCrop()
-                    .into(ivProduto);
-
+            showImageInto(produto.getImage(), ivProduto);
             etUrlProduto.setText(produto.getUrl());
             etUrlProduto.setEnabled(false);
             etProduto.setText(produto.getNome());
@@ -128,6 +128,17 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         } else {
             produto = new Produto();
         }
+    }
+
+    private void showImageInto(String image, ImageView into) {
+        Picasso.with(this)
+                .load(image)
+                .noFade()
+                .placeholder(R.drawable.ic_menu_camera)
+                .error(R.mipmap.ic_error)
+                .resize(116, 116)
+                .centerCrop()
+                .into(into);
     }
 
     private int selecionarValorSpinner(String valor) {
@@ -168,19 +179,22 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         finish();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void preencherCampos(com.github.dsaouda.listadesejos.dto.Produto produto) {
         etProduto.setText(produto.getNome());
         etValor.setText(String.valueOf(produto.getValor()));
 
         this.produto.setImage(produto.getImage());
-        Picasso.with(ProdutoActivity.this)
-                .load(produto.getImage())
-                .noFade()
-                .placeholder(R.drawable.ic_menu_camera)
-                .error(R.mipmap.ic_error)
-                .resize(116, 116)
-                .centerCrop()
-                .into(ivProduto);
+        showImageInto(produto.getImage(), ivProduto);
     }
 
     public void setErrorEditTextURL(String s) {

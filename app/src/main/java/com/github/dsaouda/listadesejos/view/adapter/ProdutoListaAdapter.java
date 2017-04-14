@@ -12,6 +12,8 @@ import com.github.dsaouda.listadesejos.view.holder.ProdutoViewHolder;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 public class ProdutoListaAdapter extends RecyclerView.Adapter {
 
     private final List<Produto> produtos;

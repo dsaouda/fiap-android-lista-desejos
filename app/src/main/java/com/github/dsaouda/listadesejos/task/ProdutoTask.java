@@ -26,7 +26,7 @@ public class ProdutoTask extends AsyncTask<URL, Void, Produto> {
         super.onPreExecute();
 
         pgLoading = new ProgressDialog(activity);
-        pgLoading.setMessage("Buscando dados do produto ...");
+        pgLoading.setMessage(activity.getString(R.string.search_product_data));
         pgLoading.show();
     }
 

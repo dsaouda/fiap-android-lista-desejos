@@ -17,12 +17,23 @@ import com.github.dsaouda.listadesejos.model.ProdutoDao;
 import com.github.dsaouda.listadesejos.view.adapter.ProdutoListaAdapter;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
-    private final ImageView ivItemProduto;
-    private final TextView tvProduto;
-    private final TextView tvValor;
-    private final TextView tvTag;
+    @BindView(R.id.ivItemProduto)
+    ImageView ivItemProduto;
+
+    @BindView(R.id.tvProduto)
+    TextView tvProduto;
+
+    @BindView(R.id.tvValor)
+    TextView tvValor;
+
+    @BindView(R.id.tvTag)
+    TextView tvTag;
+
     private final ProdutoDao dao;
     private final ProdutoListaAdapter adapter;
     private Produto produto;
@@ -30,14 +41,13 @@ public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.O
 
     public ProdutoViewHolder(final View view, final ProdutoListaAdapter adapter, final ProdutoDao dao) {
         super(view);
+
+        ButterKnife.bind(this, view);
+
         this.adapter = adapter;
         this.dao = dao;
         this.view = view;
         view.setOnLongClickListener(this);
-        ivItemProduto = (ImageView) view.findViewById(R.id.ivItemProduto);
-        tvProduto = (TextView) view.findViewById(R.id.tvProduto);
-        tvValor = (TextView) view.findViewById(R.id.tvValor);
-        tvTag = (TextView) view.findViewById(R.id.tvTag);
     }
 
     public void removerEndereco() {

@@ -10,5 +10,9 @@ public interface B2WSerciceProvider {
 
     //itemId:({id})&limit=1&paymentOptionIds=BOLETO
     @GET("product")
-    Call<B2WJson> getProduto(@Query("q") String query, @Query("limit") int limit, @Query("paymentOptionIds") String payment);
+    Call<B2WJson> getProduto(
+        @Query("q") String query,
+        @Query("limit") int limit,
+        @Query("paymentOptionIds") String payment
+    );
 }

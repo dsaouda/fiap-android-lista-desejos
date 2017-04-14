@@ -7,19 +7,14 @@ public class Produto {
     private String image;
     private Double valor;
 
-    public Produto(String nome, String descricao, String image, Double valor) {
+    public Produto(String nome, String image, Double valor) {
         this.nome = nome;
-        this.descricao = descricao.replaceAll("\\<[^>]*>","");
         this.image = image;
         this.valor = valor;
     }
 
     public String getNome() {
         return nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public String getImage() {

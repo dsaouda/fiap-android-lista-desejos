@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dsaouda.listadesejos.model.DaoSession;
@@ -55,10 +56,14 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    TextView tvLoginAs;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         init();
     }
 
@@ -128,9 +133,7 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(new Intent(this, LoginActivity.class), 200);
                 break;
             case R.id.nav_splashscreen:
-                Intent intent = new Intent(this, SplashScreenActivity.class);
-                intent.putExtra("forceSplash", true);
-                startActivityForResult(intent, 200);
+                startActivityForResult(new Intent(this, SplashScreenActivity.class), 200);
                 break;
             case R.id.nav_sobre:
                 startActivityForResult(new Intent(this, SobreActivity.class), 200);
@@ -144,18 +147,26 @@ public class MainActivity extends AppCompatActivity
 
     private void init() {
         ButterKnife.bind(this);
+
         rvProdutoLista.setLayoutManager(new LinearLayoutManager(this));
 
         daoSession = ((App) getApplication()).getDaoSession();
         dao = daoSession.getProdutoDao();
         repo = new ProdutoRepo(dao);
 
+        loadLoginAs();
         loadRecycleViewEnderecoLista();
         loadSwipe();
         loadToolbar();
         loadFabButton();
         loadToogle();
         loadNavigationView();
+    }
+
+    private void loadLoginAs() {
+        final View headerView = navigationView.getHeaderView(0);
+        tvLoginAs = (TextView) headerView.findViewById(R.id.tvLoginAs);
+        tvLoginAs.setText(new LoginRepo(daoSession.getLoginDao()).defaultLogin().getUsuario());
     }
 
     private void loadNavigationView() {

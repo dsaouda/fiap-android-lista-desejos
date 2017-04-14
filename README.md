@@ -3,6 +3,10 @@
 O objetivo desse aplicativo é gerar uma lista de produtos desejados. Atualmente o suporte está
 apenas aos ecommerce do grupo B2W (submarino.com.br, americanas.com.br, shoptime.com.br, soubarato.com.br)
 
+# Download apk
+
+A apk pode ser baixada no seguinte endereço https://github.com/dsaouda/fiap-android-wishlist/releases/tag/1.1.0
+
 # Exemplo de URLs que podem ser importadas
 
  - http://www.americanas.com.br/produto/14161370/cozinha-compacta-4-pecas-poquema-julia-c1?condition=NEW

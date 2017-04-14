@@ -26,19 +26,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:hint="Produto" />
+            android:hint="@string/product" />
 
         <TextView
             android:id="@+id/tvValor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Valor" />
+            android:hint="@string/value" />
 
         <TextView
             android:id="@+id/tvTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tag"/>
+            android:hint="@string/tag"/>
 
     </LinearLayout>
 </LinearLayout>

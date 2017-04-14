@@ -44,7 +44,7 @@
         </activity>
 
         <activity android:name=".SobreActivity"
-            android:label="@string/title_activity_sobre">
+            android:label="@string/title_activity_about">
         </activity>
     </application>
 

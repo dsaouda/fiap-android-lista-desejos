@@ -35,7 +35,7 @@
                     android:id="@+id/etUrlProduto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/url_produto"
+                    android:hint="@string/url_product"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -48,7 +48,7 @@
                     android:id="@+id/etProduto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/produto"
+                    android:hint="@string/product"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -61,7 +61,7 @@
                     android:id="@+id/etValor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/valor"
+                    android:hint="@string/value"
                     android:inputType="numberDecimal"
                     android:lines="1" />
 
@@ -82,7 +82,7 @@
                 android:id="@+id/btnSalvar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/salvar" />
+                android:text="@string/save" />
 
         </LinearLayout>
 

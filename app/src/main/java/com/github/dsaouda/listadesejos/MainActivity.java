@@ -73,11 +73,11 @@ public class MainActivity extends AppCompatActivity
 
         switch (resultCode) {
             case RESULT_CANCELED:
-                Toast.makeText(MainActivity.this, getString(R.string.cancelado), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.cancel), Toast.LENGTH_LONG).show();
                 break;
 
             case 201:
-                Toast.makeText(MainActivity.this, getString(R.string.produto_salvo_sucesso), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.product_success_save), Toast.LENGTH_LONG).show();
                 loadRecycleViewEnderecoLista();
                 break;
         }

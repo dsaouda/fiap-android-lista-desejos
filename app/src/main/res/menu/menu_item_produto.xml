@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/menuEditar"
-        android:title="@string/editar"/>
+        android:title="@string/edit"/>
 
     <item
         android:id="@+id/menuDeletar"
-        android:title="@string/deletar"/>
+        android:title="@string/delete"/>
 
     <item
         android:id="@+id/menuVisualizarExterno"
-        android:title="@string/visualizar_no_site"/>
+        android:title="@string/view_in_site"/>
 
 </menu>

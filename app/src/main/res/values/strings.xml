@@ -1,88 +1,84 @@
 <resources>
-    <string name="app_name">ListaDesejos</string>
-
+    <string name="app_name">WishList</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_logout">Logout</string>
-
-    <string name="title_activity_splash_screen">Lista de desejos</string>
+    <string name="title_activity_splash_screen">WishList</string>
     <string name="application_name">WishList</string>
     <string name="title_activity_login">Login</string>
-
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="username">username</string>
     <string name="keep_connected">Keep Connected</string>
     <string name="error_message">Login and/or password is not valid</string>
-    <string name="title_activity_produto">Produto</string>
-    <string name="produto">Produto</string>
-    <string name="valor">Valor</string>
-    <string name="descricao">Informações do produto</string>
-    <string name="salvar">Salvar</string>
+    <string name="title_activity_produto">Product</string>
+    <string name="product">Product</string>
+    <string name="value">Value</string>
+    <string name="save">Save</string>
     <string name="tag">Tags</string>
-    <string name="visualizar_no_site">Visualizar no site</string>
-    <string name="deletar">Deletar</string>
-    <string name="editar">Editar</string>
-    <string name="nenhum_item_cadastrado">Nenhum item cadastrado</string>
-    <string name="cancelado">Cancelado</string>
-    <string name="produto_salvo_sucesso">Produto salvo com sucesso</string>
+    <string name="view_in_site">View in site</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="no_items_registered">No items registered</string>
+    <string name="cancel">Cancelado</string>
+    <string name="product_success_save">Product success save</string>
     <string name="app_version">Version 1.0</string>
-    <string name="author"><![CDATA[Desenvolvido por Diego Saouda <diegosaouda@gmail.com>]]></string>
-    <string name="title_activity_sobre">Sobre</string>
-    <string name="source">Fonte localizado no github dsaouda/fiap-android-wishlist</string>
-    <string name="picture_chooser">Escolha uma opção</string>
-    <string name="url_foto">URL Foto produto</string>
-    <string name="close">Fechar</string>
-    <string name="select_category">Selecione uma categoria</string>
-    <string name="url_produto">URL Product</string>
+    <string name="author"><![CDATA[Develop by Diego Saouda <diegosaouda@gmail.com>]]></string>
+    <string name="title_activity_about">About</string>
+    <string name="source">Source in github\ndsaouda/fiap-android-wishlist</string>
+    <string name="picture_chooser">Choose a option</string>
+    <string name="close">Close</string>
+    <string name="select_category">Select a category</string>
+    <string name="url_product">URL Product</string>
     <string name="url_not_valid">URL not is valid</string>
-    <string name="url_not_supported">Essa URL não é suportada</string>
-    <string name="image_fallback">Imagem será substituida após digitação da url</string>
+    <string name="url_not_supported">This URL is not supported</string>
+    <string name="image_fallback">Image is replaced after URL is set</string>
     <string name="field_require">Field is require</string>
     <string name="digits_not_valid">Value is not valid</string>
-    <string name="search_product_data">Buscando dados do produto ...</string>
+    <string name="search_product_data">Search data of product ...</string>
+    <string name="about">About</string>
+    <string name="new_product">New Product</string>
 
-    <string-array name="tag_produtos">
-        <item>todos os departamentos</item>
-        <item>alimentos e bebidas</item>
-        <item>áudio</item>
-        <item>automotivo</item>
-        <item>ar condicionado e ventilação</item>
-        <item>bebês</item>
-        <item><![CDATA[beleza & perfumaria]]></item>
-        <item>blu-ray e blu-ray 3D</item>
-        <item>brinquedos</item>
-        <item>cama, mesa e banho</item>
-        <item>câmeras e filmadoras</item>
-        <item>casa e construção novo</item>
-        <item>celulares e smatphones</item>
-        <item>decoração</item>
-        <item>eletrodomésticos</item>
-        <item>eletroportáteis</item>
-        <item>esporte e lazer</item>
-        <item>ferramentas e jardim</item>
-        <item>filmes e séries</item>
+    <string-array name="tag_product">
+        <item>all departments</item>
+        <item>food and drink</item>
+        <item>audio</item>
+        <item>automotive</item>
+        <item>air conditioning and ventilation</item>
+        <item>babies</item>
+        <item><![CDATA[beauty & perfumery]]></item>
+        <item>blu-ray and blu-ray 3D</item>
+        <item>toys</item>
+        <item>bed, table and bath</item>
+        <item>cameras and camcorders</item>
+        <item>house and new construction</item>
+        <item>cell phones and smatphones</item>
+        <item>decoration</item>
+        <item>home appliances</item>
+        <item>electroportable</item>
+        <item>sport and leisure</item>
+        <item>tools and garden</item>
+        <item>movies and series</item>
         <item>games</item>
-        <item>indústria, comércio e negócios</item>
-        <item>informática</item>
-        <item>informática e acessórios</item>
-        <item>instrumentos musicais</item>
-        <item>linha industrial novo</item>
-        <item>livros</item>
-        <item>malas e acessórios</item>
-        <item>moda e acessórios</item>
-        <item>móveis</item>
-        <item>música</item>
-        <item>papelaria</item>
-        <item>páscoa novo</item>
+        <item>industry, commerce and business</item>
+        <item>computing</item>
+        <item>computer and accessories</item>
+        <item>musical instruments</item>
+        <item>new industrial line</item>
+        <item>books</item>
+        <item>bags and accessories</item>
+        <item>fashion and accessories</item>
+        <item>furniture</item>
+        <item>music</item>
+        <item>stationery</item>
+        <item>new easter</item>
         <item>pet shop</item>
-        <item>relógios</item>
-        <item>saúde</item>
-        <item>sinalização e segurança</item>
-        <item>suplementos e vitaminas</item>
-        <item>telefonia fixa</item>
-        <item>tv e áudio</item>
-        <item>utilidades domésticas</item>
+        <item>watches</item>
+        <item>health</item>
+        <item>signaling and security</item>
+        <item>supplements and vitamins</item>
+        <item>fixed telephony</item>
+        <item>tv and audio</item>
+        <item>household goods</item>
     </string-array>
 </resources>

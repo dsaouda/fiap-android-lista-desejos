@@ -103,7 +103,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
         spTag.setTitle(getString(R.string.select_category));
         spTag.setPositiveButton(getString(R.string.close));
 
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.tag_produtos));
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.tag_product));
         spTag.setAdapter(spinnerArrayAdapter);
     }
 
@@ -122,6 +122,7 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
             showImageInto(produto.getImage(), ivProduto);
             etUrlProduto.setText(produto.getUrl());
             etUrlProduto.setEnabled(false);
+            etUrlProduto.setFocusable(false);
             etProduto.setText(produto.getNome());
             spTag.setSelection(selecionarValorSpinner(produto.getTag()));
             etValor.setText(String.valueOf(produto.getValor()));

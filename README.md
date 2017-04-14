@@ -3,6 +3,13 @@
 O objetivo desse aplicativo é gerar uma lista de produtos desejados. Atualmente o suporte está
 apenas aos ecommerce do grupo B2W (submarino.com.br, americanas.com.br, shoptime.com.br, soubarato.com.br)
 
+# Exemplo de URLs que podem ser importadas
+
+ - http://www.americanas.com.br/produto/14161370/cozinha-compacta-4-pecas-poquema-julia-c1?condition=NEW
+ - https://www.submarino.com.br/produto/15217270/torneira-cozinha-gourmet-monocomando-original-luxo-baixa-de-metal-cromado.?condition=NEW
+ - http://www.shoptime.com.br/produto/123100044/fritadeira-sem-oleo-fun-kitchen-fritalight-retro-3l-preta?condition=NEW
+ - http://www.soubarato.com.br/produto/125653312/usado-smart-tv-led-55-semp-toshiba-le55l7400-ultra-hd-4k-com-conversor-digital-integrado-3-hdmi-2-usb-wi-fi-grava-programas
+
 # Dependências
 
 Para realização do projeto foram utilizados alguma bibliotecas:

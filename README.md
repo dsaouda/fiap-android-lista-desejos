@@ -6,6 +6,11 @@ O objetivo desse aplicativo é gerar uma lista de produtos desejados. Atualmente
 
 A apk pode ser baixada no seguinte endereço https://github.com/dsaouda/fiap-android-wishlist/releases/tag/1.1.0
 
+# Acesso ao sistema
+
+No splashscreen, primeira tela do sistema, o aplicativo captura o usuário e senha da seguinte URL http://www.mocky.io/v2/58b9b1740f0000b614f09d2f.
+Atualmente o usuário é *android* e a senha *mobile*
+
 # Exemplo de URLs que podem ser importadas
 
 Abaixo algumas urls testadas na página de cadastro de produto:

@@ -3,7 +3,9 @@ package com.github.dsaouda.listadesejos.dagger;
 import com.github.dsaouda.listadesejos.manager.LoginManager;
 import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.LoginDao;
+import com.github.dsaouda.listadesejos.model.ProdutoDao;
 import com.github.dsaouda.listadesejos.repository.LoginRepo;
+import com.github.dsaouda.listadesejos.repository.ProdutoRepo;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,5 +32,15 @@ public class GreenDaoModule {
     @Provides
     public LoginManager providerLoginManager(LoginDao dao, LoginRepo repo) {
         return new LoginManager(dao, repo);
+    }
+
+    @Provides
+    public ProdutoDao providerProdutoDao() {
+        return daoSession.getProdutoDao();
+    }
+
+    @Provides
+    public ProdutoRepo providerProdutoRepo(ProdutoDao dao) {
+        return new ProdutoRepo(dao);
     }
 }

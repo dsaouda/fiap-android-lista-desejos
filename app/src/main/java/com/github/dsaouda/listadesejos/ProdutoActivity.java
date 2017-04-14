@@ -3,7 +3,6 @@ package com.github.dsaouda.listadesejos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.Produto;
 import com.github.dsaouda.listadesejos.model.ProdutoDao;
 import com.github.dsaouda.listadesejos.task.ProdutoTask;
@@ -27,6 +25,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,8 +34,8 @@ import butterknife.OnFocusChange;
 
 public class ProdutoActivity extends AppCompatActivity implements Validator.ValidationListener {
 
-    private DaoSession daoSession;
-    private ProdutoDao dao;
+    @Inject
+    ProdutoDao dao;
 
     @NotEmpty(messageResId = R.string.field_require)
     @BindView(R.id.etProduto)
@@ -67,18 +67,13 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produto);
+        App.getComponent().inject(this);
 
         ButterKnife.bind(this);
         validator = new Validator(this);
 
-        daoSession = ((App) getApplication()).getDaoSession();
-        dao = daoSession.getProdutoDao();
-
         loadSpinner();
         loadProduto();
-
-
-
     }
 
     @OnFocusChange(R.id.etUrlProduto)

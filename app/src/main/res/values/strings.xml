@@ -29,7 +29,7 @@
     <string name="picture_chooser">Choose a option</string>
     <string name="close">Close</string>
     <string name="select_category">Select a category</string>
-    <string name="url_product">URL Product</string>
+    <string name="url_product">URL Product B2W (sub, americas, shoptime, soubarato)</string>
     <string name="url_not_valid">URL not is valid</string>
     <string name="url_not_supported">This URL is not supported</string>
     <string name="image_fallback">Image is replaced after URL is set</string>

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.dsaouda.listadesejos.api.MockyService;
 import com.github.dsaouda.listadesejos.model.DaoSession;
 import com.github.dsaouda.listadesejos.model.Login;
 import com.github.dsaouda.listadesejos.model.LoginDao;
@@ -31,8 +32,11 @@ import com.github.dsaouda.listadesejos.view.holder.ProdutoViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,11 +62,24 @@ public class MainActivity extends AppCompatActivity
 
     TextView tvLoginAs;
 
+    @Inject
+    MockyService exemplo;
+
+    @Inject
+    Call<com.github.dsaouda.listadesejos.dto.Login> a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        System.out.println(exemplo);
+        System.out.println(a);
+
+        App.getComponent().inject(this);
+
+        System.out.println(a);
+        System.out.println(exemplo);
 
         init();
     }

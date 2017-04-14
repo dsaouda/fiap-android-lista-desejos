@@ -6,33 +6,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.github.dsaouda.listadesejos.api.MockyService;
 import com.github.dsaouda.listadesejos.callback.LoginCallback;
 import com.github.dsaouda.listadesejos.dto.Login;
-import com.github.dsaouda.listadesejos.factory.MockyServiceFactory;
 import com.github.dsaouda.listadesejos.manager.LoginManager;
-import com.github.dsaouda.listadesejos.model.DaoSession;
-import com.github.dsaouda.listadesejos.model.LoginDao;
-import com.github.dsaouda.listadesejos.repository.LoginRepo;
+
+import javax.inject.Inject;
+
 import retrofit2.Call;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static final int SPLASH_DISPLAY_LENGTH = 3000;
 
-    private final MockyService service = MockyServiceFactory.create();
-    private final Call<Login> call = service.login("58b9b1740f0000b614f09d2f");
-    private DaoSession daoSession;
-    private LoginDao dao;
-    private LoginRepo repo;
-    private LoginManager manager;
+    @Inject
+    Call<Login> loginService;
+
+    @Inject
+    LoginManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        App.getComponent().inject(this);
 
         Animation anim = AnimationUtils.loadAnimation(this,
                 R.anim.animacao_splash_screen);
@@ -43,16 +41,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         iv.startAnimation(anim);
 
 
-        daoSession = ((App) getApplication()).getDaoSession();
-        dao = daoSession.getLoginDao();
-        repo = new LoginRepo(dao);
-
-        final com.github.dsaouda.listadesejos.model.Login login = repo.defaultLogin();
-        manager = new LoginManager(dao, repo);
+        final com.github.dsaouda.listadesejos.model.Login login = manager.getRepo().defaultLogin();
 
         if (login == null) {
             final LoginCallback callback = new LoginCallback(manager, this.handler(LoginActivity.class));
-            call.enqueue(callback);
+            loginService.enqueue(callback);
         } else {
             SplashScreenActivity.this.handler(login.isManterConectado()
                     ? MainActivity.class

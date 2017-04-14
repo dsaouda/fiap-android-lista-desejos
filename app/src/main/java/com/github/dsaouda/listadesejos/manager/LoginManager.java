@@ -26,4 +26,8 @@ public class LoginManager {
         }
     }
 
+    public LoginRepo getRepo() {
+        return repo;
+    }
+
 }

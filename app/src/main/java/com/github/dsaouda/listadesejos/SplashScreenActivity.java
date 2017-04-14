@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.dsaouda.listadesejos.api.MockyService;
 import com.github.dsaouda.listadesejos.callback.LoginCallback;
@@ -29,6 +33,15 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        Animation anim = AnimationUtils.loadAnimation(this,
+                R.anim.animacao_splash_screen);
+        anim.reset();
+
+        LinearLayout iv = (LinearLayout) findViewById(R.id.activity_splash_screen);
+        iv.clearAnimation();
+        iv.startAnimation(anim);
+
 
         daoSession = ((App) getApplication()).getDaoSession();
         dao = daoSession.getLoginDao();

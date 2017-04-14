@@ -22,7 +22,7 @@
     <string name="no_items_registered">No items registered</string>
     <string name="cancel">Cancel</string>
     <string name="product_success_save">Product success save</string>
-    <string name="app_version" translatable="false">Version 1.0</string>
+    <string name="app_version" translatable="false">Version 1.2</string>
     <string name="author"><![CDATA[Develop by Diego Saouda <diegosaouda@gmail.com>]]></string>
     <string name="title_activity_about">About</string>
     <string name="source">Source in github\ndsaouda/fiap-android-wishlist</string>
@@ -38,6 +38,9 @@
     <string name="search_product_data">Search data of product ...</string>
     <string name="about">About</string>
     <string name="new_product">New Product</string>
+    <string name="no_internet">Can not access resource. Check your internet.</string>
+    <string name="error_callback_login">Can not access resource.</string>
+    <string name="url_mocky_error">Make sure the URL is still available http://www.mocky.io/v2/58b9b1740f0000b614f09d2f</string>
 
     <string-array name="tag_product">
         <item>all departments</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.dsaouda.listadesejos">
+    package="com.github.dsaouda.wishlist">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -8,7 +8,7 @@
 
 
     <application
-        android:name=".App"
+        android:name="com.github.dsaouda.wishlist.App"
         android:allowBackup="true"
         android:icon="@drawable/shopping_cart_128"
         android:label="@string/app_name"
@@ -16,11 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.github.dsaouda.wishlist.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".SplashScreenActivity"
+            android:name="com.github.dsaouda.wishlist.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/FullscreenTheme">
@@ -30,19 +30,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.github.dsaouda.wishlist.LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity
-            android:name=".ProdutoActivity"
+            android:name="com.github.dsaouda.wishlist.ProdutoActivity"
             android:label="@string/title_activity_produto">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.github.dsaouda.wishlist.MainActivity" />
 
         </activity>
 
-        <activity android:name=".SobreActivity"
+        <activity android:name="com.github.dsaouda.wishlist.SobreActivity"
             android:label="@string/title_activity_about">
         </activity>
     </application>

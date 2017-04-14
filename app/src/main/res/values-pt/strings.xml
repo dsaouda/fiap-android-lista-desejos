@@ -36,6 +36,9 @@
     <string name="username">Nome de usuário</string>
     <string name="value">Valor</string>
     <string name="view_in_site">Visualizar no site</string>
+    <string name="error_callback_login">Não é possível acessar o recurso.</string>
+    <string name="no_internet">Não é possível acessar o recurso. Verifique sua internet.</string>
+    <string name="url_mocky_error">Verifique se a URL ainda está disponível http://www.mocky.io/v2/58b9b1740f0000b614f09d2f</string>
 
     <string-array name="tag_product">
         <item>todos os departamentos</item>

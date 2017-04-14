@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Lista de desejos</string>
     <string name="about">Sobre</string>
-    <string name="action_logout">Logout</string>
-    <string name="action_sign_in_short">Registrar</string>
+    <string name="action_logout">Sair</string>
+    <string name="action_sign_in_short">Acessar</string>
     <string name="application_name">Lista de desejos</string>
     <string name="author"><![CDATA[Desenvolvido por Diego Saouda <diegosaouda@gmail.com>]]></string>
     <string name="cancel">Cancelado</string>
@@ -28,13 +28,12 @@
     <string name="select_category">Selecionar categoria</string>
     <string name="source">Fonte no github\ndsaouda/fiap-android-wishlist</string>
     <string name="title_activity_about">Sobre</string>
-    <string name="title_activity_login"></string>
     <string name="title_activity_produto">Produto</string>
     <string name="title_activity_splash_screen">Lista de desejos</string>
     <string name="url_not_supported">Essa URL não é suportada</string>
     <string name="url_not_valid">URL não é válida</string>
     <string name="url_product">URL produto</string>
-    <string name="username">nome de usuário</string>
+    <string name="username">Nome de usuário</string>
     <string name="value">Valor</string>
     <string name="view_in_site">Visualizar no site</string>
 

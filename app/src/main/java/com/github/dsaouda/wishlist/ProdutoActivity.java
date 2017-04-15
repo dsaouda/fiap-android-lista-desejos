@@ -98,9 +98,10 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
     }
 
     @OnLongClick(R.id.tvAjudaPreencherProduto)
-    public void onClickAjudaPreencherURL() {
+    public boolean onClickAjudaPreencherURL() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/dsaouda/fiap-android-wishlist/blob/master/doc/preencher_url_produto.md"));
         startActivity(browserIntent);
+        return true;
     }
 
     private void loadSpinner() {

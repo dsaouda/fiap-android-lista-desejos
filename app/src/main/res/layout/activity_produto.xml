@@ -38,6 +38,14 @@
                     android:hint="@string/url_product"
                     android:inputType="text" />
 
+                <TextView
+                    android:id="@+id/tvAjudaPreencherProduto"
+                    android:textColor="#AAAAAA"
+                    android:textStyle="italic"
+                    android:text="@string/text_product_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout

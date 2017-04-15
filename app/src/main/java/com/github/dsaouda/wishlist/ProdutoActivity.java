@@ -1,6 +1,7 @@
 package com.github.dsaouda.wishlist;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.github.dsaouda.wishlist.model.Produto;
 import com.github.dsaouda.wishlist.model.ProdutoDao;
@@ -31,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import butterknife.OnLongClick;
 
 public class ProdutoActivity extends AppCompatActivity implements Validator.ValidationListener {
 
@@ -92,6 +95,12 @@ public class ProdutoActivity extends AppCompatActivity implements Validator.Vali
             etUrlProduto.setError(getString(R.string.url_not_valid));
             return ;
         }
+    }
+
+    @OnLongClick(R.id.tvAjudaPreencherProduto)
+    public void onClickAjudaPreencherURL() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/dsaouda/fiap-android-wishlist/blob/master/doc/preencher_url_produto.md"));
+        startActivity(browserIntent);
     }
 
     private void loadSpinner() {

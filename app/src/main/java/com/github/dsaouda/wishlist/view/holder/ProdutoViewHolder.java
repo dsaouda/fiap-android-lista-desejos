@@ -63,7 +63,7 @@ public class ProdutoViewHolder extends RecyclerView.ViewHolder implements View.O
                 .noFade()
                 .placeholder(R.drawable.ic_menu_gallery)
                 .error(R.drawable.ic_menu_gallery)
-                .resize(116, 116)
+                .fit()
                 .centerCrop()
                 .into(ivItemProduto);
 
